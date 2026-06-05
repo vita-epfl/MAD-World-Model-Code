@@ -1,0 +1,38 @@
+model:
+  model_source: "LTXV_13B_097_DEV"
+  lora_repo: "AhmadRH/MAD-LTX"
+  mode_loras:
+    rgb-pose-bbox:
+      repo_id: "AhmadRH/MAD-LTX"
+      weight_name: "LTX_13B_r512_Lora_Conditional_Forecaster.safetensors"
+inference:
+  mode: "rgb-pose-bbox"
+  video_dims: [768, 512, 121]
+  steps: 50
+  guidance_scale: 3.5
+  negative_prompt: "worst quality, inconsistent motion, blurry, jittery, distorted"
+  seed: 42
+  fps: 24
+  out_dir: "outputs/inference/rgb_pose_bbox_13b"
+inputs:
+  items:
+    - prompt: >-
+        The image depicts a multi-lane urban road under an overpass with visible structural beams above. The road
+        surface shows wear and some markings. Several vehicles are present: a dark-colored sedan is in the left lane,
+        a gray minivan is in the center lane, a silver SUV is in the right lane, and a yellow taxi is partially
+        visible on the far right edge. The surrounding environment includes brick walls on both sides of the road,
+        indicating an enclosed or tunnel-like structure. The background shows additional vehicles and structures,
+        including a white van and a red car further down the road. The lighting suggests daytime conditions with
+        natural light filtering through the overpass, and the scene conveys moderate city traffic.
+      rgb_image: "examples/inference/ego_motion/rgb_1.jpg"
+      control_image: "examples/inference/ego_motion/pose_1.jpg"
+      reference_video: "path/to/bbox_control_1.mp4"
+      output_name: "bbox_1"
+    - prompt: >-
+        The image depicts a residential urban road. Several parked vehicles are present along the road, with one
+        parked directly in front of the ego vehicle. The surrounding environment includes buildings and trees. The
+        lighting suggests daytime conditions, and the scene conveys a calm city street with light traffic.
+      rgb_image: "examples/inference/ego_motion/rgb_2.jpg"
+      control_image: "examples/inference/ego_motion/pose_2.jpg"
+      reference_video: "path/to/bbox_control_2.mp4"
+      output_name: "bbox_2"

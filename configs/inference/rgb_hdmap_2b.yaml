@@ -1,0 +1,34 @@
+model:
+  model_source: "LTXV_2B_0.9.6_DEV"
+  lora_repo: "AhmadRH/MAD-LTX"
+  mode_loras:
+    rgb-hdmap:
+      repo_id: "AhmadRH/MAD-LTX"
+      weight_name: "LTX_2B_r512_Lora_HDMap_Forecaster.safetensors"
+inference:
+  mode: "rgb-hdmap"
+  video_dims: [768, 512, 121]
+  steps: 50
+  guidance_scale: 3.5
+  negative_prompt: "worst quality, inconsistent motion, blurry, jittery, distorted"
+  seed: 42
+  fps: 24
+  out_dir: "outputs/inference/rgb_hdmap_2b"
+inputs:
+  items:
+    - prompt: >-
+        The image depicts a multi-lane urban road. Two vehicles are present: a dark-colored sedan is in front, and
+        another black sedan is in the right lane, positioned slightly ahead of the ego vehicle. The surrounding
+        environment includes buildings, trees, and crosswalks. The background shows additional parked vehicles. The
+        lighting suggests daytime, and the overall scene conveys a typical city street with moderate traffic flow.
+        The traffic light is green, suggesting the ego vehicle can continue moving forward.
+      rgb_image: "examples/inference/hdmap/rgb_1.jpg"
+      control_image: "examples/inference/hdmap/hdmap_1.jpg"
+      output_name: "hdmap_1"
+    - prompt: >-
+        The image depicts a residential urban road. Several parked vehicles are present along the road, with one
+        parked directly in front of the ego vehicle. The surrounding environment includes buildings and trees. The
+        lighting suggests daytime conditions, and the scene conveys a calm city street with light traffic.
+      rgb_image: "examples/inference/hdmap/rgb_2.jpg"
+      control_image: "examples/inference/hdmap/hdmap_2.jpg"
+      output_name: "hdmap_2"

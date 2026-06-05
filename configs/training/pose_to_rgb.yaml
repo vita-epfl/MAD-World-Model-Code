@@ -1,0 +1,63 @@
+model:
+  model_source: "LTXV_2B_0.9.6_DEV"
+  training_mode: "lora"
+  load_checkpoint: null
+lora:
+  rank: 512
+  alpha: 512
+  dropout: 0.0
+  target_modules: ["to_k", "to_q", "to_v", "to_out.0", "ff.net.0.proj", "ff.net.2"]
+conditioning:
+  mode: "reference_video"
+  first_frame_conditioning_p: 1.0
+  latents_dir: "rgb_latents_24fps_1056x704"
+  reference_latents_dir: "pose_latents_24fps_768x512"
+optimization:
+  learning_rate: 2e-4
+  steps: 10000
+  batch_size: 1
+  gradient_accumulation_steps: 1
+  max_grad_norm: 1.0
+  optimizer_type: "adamw"
+  scheduler_type: "linear"
+  scheduler_params: {}
+  enable_gradient_checkpointing: true
+acceleration:
+  mixed_precision_mode: "bf16"
+  quantization: null
+  load_text_encoder_in_8bit: false
+  compile_with_inductor: false
+  compilation_mode: "reduce-overhead"
+data:
+  preprocessed_data_root: "data/precomputed/pose_to_rgb"
+  num_dataloader_workers: 8
+validation:
+  prompts: ["The image depicts a multi-lane urban road under an overpass with visible structural beams above. The road surface shows wear and some markings. Several vehicles are present: a dark-colored sedan is in the left lane, a gray minivan is in the center lane, a silver SUV is in the right lane, and a yellow taxi is partially visible on the far right edge. The surrounding environment includes brick walls on both sides of the road, indicating an enclosed or tunnel-like structure. The background shows additional vehicles and structures, including a white van and a red car further down the road. The lighting suggests daytime conditions with natural light filtering through the overpass, and the scene conveys moderate city traffic."]
+  images: ["examples/inference/skeleton/rgb_1.jpg"]
+  reference_videos: ["examples/inference/skeleton/pose_1.mp4"]
+  negative_prompt: "worst quality, inconsistent motion, blurry, jittery, distorted"
+  video_dims: [1056, 704, 121]
+  seed: 42
+  inference_steps: 50
+  interval: null
+  videos_per_prompt: 1
+  guidance_scale: 3.5
+  fps: 24
+  skip_initial_validation: true
+checkpoints:
+  interval: 1000
+  keep_last_n: -1
+flow_matching:
+  timestep_sampling_mode: "shifted_logit_normal"
+  timestep_sampling_params: {}
+hub:
+  push_to_hub: false
+  hub_model_id: null
+wandb:
+  enabled: false
+  project: "mad-ltx"
+  entity: null
+  tags: ["mad-ltx", "pose-to-rgb"]
+  log_validation_videos: true
+seed: 42
+output_dir: "outputs/pose_to_rgb"

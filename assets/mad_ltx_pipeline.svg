@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="520" viewBox="0 0 1440 520" role="img" aria-labelledby="title desc">
+  <title id="title">MAD-LTX pipeline</title>
+  <desc id="desc">A diagram showing RGB frame, text prompt, optional ego motion and bounding boxes, skeleton rasterization, motion-video generation, and RGB-video generation.</desc>
+  <rect width="1440" height="520" fill="#101214"/>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#d8dde3"/>
+    </marker>
+    <style>
+      .box { fill: #1b2026; stroke: #54616f; stroke-width: 2; rx: 10; }
+      .model { fill: #20322f; stroke: #78b7a0; stroke-width: 2; rx: 10; }
+      .text { fill: #f2f5f7; font: 600 25px sans-serif; }
+      .small { fill: #b8c0ca; font: 20px sans-serif; }
+      .line { stroke: #d8dde3; stroke-width: 3; marker-end: url(#arrow); }
+      .accent { fill: #78b7a0; font: 600 20px sans-serif; }
+    </style>
+  </defs>
+  <text x="48" y="58" class="text">MAD-LTX: Motion and Appearance Decoupling for Driving Video Generation</text>
+  <g transform="translate(50 115)">
+    <rect class="box" width="230" height="135"/>
+    <text x="28" y="48" class="text">Inputs</text>
+    <text x="28" y="84" class="small">RGB first frame</text>
+    <text x="28" y="113" class="small">Prompt + optional controls</text>
+  </g>
+  <line class="line" x1="295" y1="182" x2="390" y2="182"/>
+  <g transform="translate(410 115)">
+    <rect class="box" width="260" height="135"/>
+    <text x="28" y="48" class="text">Skeleton Controls</text>
+    <text x="28" y="84" class="small">Human, car, lanes</text>
+    <text x="28" y="113" class="small">Rasterized on black</text>
+  </g>
+  <line class="line" x1="685" y1="182" x2="780" y2="182"/>
+  <g transform="translate(800 95)">
+    <rect class="model" width="255" height="175"/>
+    <text x="28" y="56" class="text">LTX LoRA 1</text>
+    <text x="28" y="94" class="small">Generate motion video</text>
+    <text x="28" y="124" class="small">from first control frame</text>
+    <text x="28" y="153" class="accent">rgb-pose / motion / bbox</text>
+  </g>
+  <line class="line" x1="1070" y1="182" x2="1165" y2="182"/>
+  <g transform="translate(1185 95)">
+    <rect class="model" width="230" height="175"/>
+    <text x="28" y="56" class="text">LTX LoRA 2</text>
+    <text x="28" y="94" class="small">Generate RGB video</text>
+    <text x="28" y="124" class="small">from motion video</text>
+    <text x="28" y="153" class="accent">pose-rgb</text>
+  </g>
+  <g transform="translate(410 325)">
+    <rect class="box" width="260" height="110"/>
+    <text x="28" y="45" class="text">Training Controls</text>
+    <text x="28" y="82" class="small">Ground-truth skeleton videos</text>
+  </g>
+  <line class="line" x1="670" y1="380" x2="800" y2="245"/>
+  <line class="line" x1="670" y1="380" x2="1185" y2="270"/>
+</svg>
